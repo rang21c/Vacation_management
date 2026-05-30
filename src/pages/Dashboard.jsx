@@ -172,22 +172,58 @@ export default function Dashboard() {
       <div className="dashboard-grid">
         {/* ── 통계 카드 ── */}
         <div className="glass-card dashboard-stats">
-          {/* 총 휴가 설정 */}
+          {/* 총 휴가 설정 (증감식 스위치 카운터 컴포넌트) */}
           <div className="total-days-setting">
-            <label htmlFor="total-days-input">총 부여 휴가</label>
-            <input
-              id="total-days-input"
-              type="number"
-              className="total-days-input"
-              value={totalInput}
-              min="1"
-              max="365"
-              step="0.5"
-              onChange={(e) => setTotalInput(e.target.value)}
-              onBlur={handleTotalBlur}
-              onKeyDown={(e) => e.key === "Enter" && handleTotalBlur()}
-            />
-            <span style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>일</span>
+            <div className="setting-title-row">
+              <span className="setting-icon">📋</span>
+              <label htmlFor="total-days-input">총 부여 휴가</label>
+            </div>
+            
+            <div className="counter-box">
+              <button 
+                className="counter-btn" 
+                onClick={() => {
+                  const val = Math.max(1, parseFloat(totalInput) - 0.5);
+                  setTotalInput(val);
+                  setTotalDays(val);
+                }}
+                title="- 0.5일"
+                aria-label="휴가 0.5일 감소"
+              >
+                −
+              </button>
+              
+              <div className="counter-value-wrapper">
+                <input
+                  id="total-days-input"
+                  type="text"
+                  pattern="[0-9]*\.?[0-9]*"
+                  className="total-days-input"
+                  value={totalInput}
+                  onChange={(e) => {
+                    // 숫자와 소수점만 허용
+                    const cleanVal = e.target.value.replace(/[^0-9.]/g, "");
+                    setTotalInput(cleanVal);
+                  }}
+                  onBlur={handleTotalBlur}
+                  onKeyDown={(e) => e.key === "Enter" && handleTotalBlur()}
+                />
+                <span className="counter-unit">일</span>
+              </div>
+
+              <button 
+                className="counter-btn" 
+                onClick={() => {
+                  const val = Math.min(365, parseFloat(totalInput) + 0.5);
+                  setTotalInput(val);
+                  setTotalDays(val);
+                }}
+                title="+ 0.5일"
+                aria-label="휴가 0.5일 증가"
+              >
+                +
+              </button>
+            </div>
           </div>
 
           {/* 도넛 차트 */}

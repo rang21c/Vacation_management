@@ -698,32 +698,95 @@ body::after {
   padding: 28px;
 }
 
-/* 총 휴가 설정 */
+/* 총 휴가 설정 영역 리디자인 */
 .total-days-setting {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
   margin-bottom: 24px;
-  padding: 14px 16px;
-  background: rgba(124, 58, 237, 0.08);
-  border: 1px solid rgba(124, 58, 237, 0.2);
-  border-radius: var(--radius-md);
-}
-.total-days-setting label { font-size: 0.85rem; color: var(--text-secondary); white-space: nowrap; }
-.total-days-input {
-  width: 70px;
-  background: var(--bg-surface);
+  padding: 16px;
+  background: var(--bg-card);
   border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--glass-shadow);
+}
+.setting-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.setting-title-row label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.setting-icon {
+  font-size: 1rem;
+}
+
+/* 카운터 레이아웃 */
+.counter-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-base);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 4px;
+}
+.counter-btn {
+  width: 32px;
+  height: 32px;
   border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+.counter-btn:hover {
+  background: var(--bg-card-hover);
+  color: var(--violet-light);
+}
+.counter-value-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex: 1;
+}
+.total-days-input {
+  width: 60px;
+  background: transparent;
+  border: none;
   color: var(--text-primary);
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 1.15rem;
   font-weight: 700;
   text-align: center;
-  padding: 6px;
-  transition: border-color var(--transition);
+  padding: 4px 0;
+  outline: none;
 }
-.total-days-input:focus { outline: none; border-color: var(--violet-light); }
+/* 브라우저 기본 스피너 화살표 완전 제거 */
+.total-days-input::-webkit-outer-spin-button,
+.total-days-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.total-days-input[type=number] {
+  -moz-appearance: textfield;
+}
+.counter-unit {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
 
 /* 통계 수치 */
 .stat-list { display: flex; flex-direction: column; gap: 16px; }
