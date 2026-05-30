@@ -9,7 +9,7 @@ import YearlyCalendar from "./pages/YearlyCalendar";
 export default function App() {
   return (
     <VacationProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/Vacation_management">
         <div className="app-layout">
           <Header />
           <Routes>
