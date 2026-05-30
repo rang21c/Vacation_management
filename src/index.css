@@ -366,27 +366,16 @@ body::after {
   user-select: none;
 }
 
-/* 월 탭 래퍼 & 그리드 (가로 정렬 및 터치 스와이프 스크롤 지원) */
+/* 월 탭 래퍼 & 그리드 (가로 폭 100% 조율) */
 .month-selector-grid-wrapper {
   width: 100%;
-  overflow-x: auto;
   margin-bottom: 24px;
-  padding-bottom: 4px;
-  -webkit-overflow-scrolling: touch;
-}
-.month-selector-grid-wrapper::-webkit-scrollbar {
-  height: 4px;
-}
-.month-selector-grid-wrapper::-webkit-scrollbar-thumb {
-  background: var(--glass-border);
-  border-radius: 2px;
 }
 
 .month-tabs {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: 8px;
-  min-width: 800px; /* 모바일에서 찌그러지지 않고 좌우 스크롤 되도록 최소 가로 폭 보장 */
+  gap: 10px;
 }
 
 .month-tab {
@@ -405,6 +394,8 @@ body::after {
   cursor: pointer;
   transition: all var(--transition);
   position: relative;
+  /* 배지가 튀어나와서 그려지도록 overflow: visible 보장 */
+  overflow: visible; 
 }
 .month-tab:hover {
   color: var(--text-primary);
@@ -428,21 +419,22 @@ body::after {
 }
 .month-tab .tab-badge {
   position: absolute;
-  top: -6px;
-  right: -4px;
+  top: -8px;
+  right: -6px;
   min-width: 20px;
   height: 20px;
-  border-radius: 10px;
+  border-radius: 50%;
   background: var(--text-holiday);
-  color: #fff;
-  font-size: 0.65rem;
+  color: #ffffff;
+  font-size: 0.68rem;
   font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 5px;
-  border: 1.5px solid var(--bg-base);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  padding: 0 2px;
+  border: 1.5px solid var(--bg-surface); /* 카드 내부 표면색과 조화롭도록 테두리 색상 보정 */
+  box-shadow: 0 2px 8px rgba(244, 63, 94, 0.4);
+  z-index: 10;
 }
 
 /* 달력 그리드 */
