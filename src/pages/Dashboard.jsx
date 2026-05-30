@@ -79,6 +79,25 @@ export default function Dashboard() {
     else setTotalInput(settings.totalDays);
   };
 
+  // 1년 전체 휴가 리스트를 날짜 순으로 정렬하여 간격 계산용 배열 생성
+  const allVacationsSorted = Object.entries(vacationData)
+    .filter(([key]) => key.startsWith(`${year}-`))
+    .map(([key, state]) => ({ key, date: new Date(key), state }))
+    .sort((a, b) => a.date - b.date);
+
+  // 각 휴가 간격(이전 휴가 대비 경과일수) 연산 매핑
+  const vacationIntervals = {};
+  allVacationsSorted.forEach((item, index) => {
+    if (index === 0) {
+      vacationIntervals[item.key] = null; // 첫 휴가는 비교군 없음
+    } else {
+      const prevDate = allVacationsSorted[index - 1].date;
+      const diffTime = Math.abs(item.date - prevDate);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      vacationIntervals[item.key] = diffDays;
+    }
+  });
+
   return (
     <div className="page-content">
       <div className="page-title">
@@ -261,30 +280,38 @@ export default function Dashboard() {
                       {monthTotal}일
                     </span>
                   </div>
-                  {items.map(({ key, day, state }) => (
-                    <div className="vacation-item" key={key}>
-                      <div className="vacation-item-left">
-                        <span className="vacation-item-date">
-                          {y}년 {parseInt(m)}월 {day}일
-                        </span>
+                  {items.map(({ key, day, state }) => {
+                    const gapDays = vacationIntervals[key];
+                    return (
+                      <div className="vacation-item" key={key}>
+                        <div className="vacation-item-left">
+                          <span className="vacation-item-date">
+                            {y}년 {parseInt(m)}월 {day}일
+                          </span>
+                          {gapDays !== null && gapDays !== undefined && (
+                            <span className="vac-interval-badge">
+                              {gapDays}일 만에 휴가
+                            </span>
+                          )}
+                        </div>
+                        <div className="vacation-item-right">
+                          <span className={`vac-badge ${state}`}>
+                            {VAC_ICONS[state]} {VACATION_LABELS[state]}
+                          </span>
+                          <span style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>
+                            {VACATION_DAYS[state]}일
+                          </span>
+                          <button
+                            className="delete-btn"
+                            onClick={() => clearDay(key)}
+                            aria-label="삭제"
+                          >
+                            ✕
+                          </button>
+                        </div>
                       </div>
-                      <div className="vacation-item-right">
-                        <span className={`vac-badge ${state}`}>
-                          {VAC_ICONS[state]} {VACATION_LABELS[state]}
-                        </span>
-                        <span style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>
-                          {VACATION_DAYS[state]}일
-                        </span>
-                        <button
-                          className="delete-btn"
-                          onClick={() => clearDay(key)}
-                          aria-label="삭제"
-                        >
-                          ✕
-                        </button>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               );
             })

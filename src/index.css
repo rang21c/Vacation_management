@@ -817,6 +817,20 @@ body::after {
 .vac-badge.PM_HALF { background: var(--vac-pm-bg); color: var(--sky-light); border: 1px solid rgba(14,165,233,0.3); }
 .vac-badge.QUARTER { background: var(--vac-quarter-bg); color: var(--emerald); border: 1px solid rgba(16,185,129,0.3); }
 
+/* 휴가 간격 알림 배지 (Auralis 스타일 메타 칩) */
+.vac-interval-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--bg-card-hover);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 500;
+  border: 1px solid var(--glass-border);
+  letter-spacing: -0.01em;
+}
+
 .delete-btn {
   width: 26px; height: 26px;
   border-radius: 50%;
