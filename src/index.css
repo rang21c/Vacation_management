@@ -2,7 +2,7 @@
    연간 휴가 관리 서비스 — 글로벌 디자인 시스템
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
 
 /* ── 색상 토큰 ── */
 :root {
@@ -38,36 +38,36 @@
   --text-weekend-sun: #f43f5e;
 }
 
-/* 라이트 모드 (Neo-Minimalist) */
+/* 라이트 모드 (Auralis Visual Scaffolding) */
 body[data-theme="light"] {
-  --bg-base:       #f8fafc;
+  --bg-base:       #f9f9f9;
   --bg-surface:    #ffffff;
   --bg-card:       #ffffff;
-  --bg-card-hover: #f1f5f9;
-  --glass-border:  rgba(15, 23, 42, 0.08);
-  --glass-shadow:  0 10px 30px rgba(15, 23, 42, 0.04);
+  --bg-card-hover: #f3f3f3;
+  --glass-border:  #c4c7c7;
+  --glass-shadow:  0 4px 30px rgba(17, 17, 17, 0.03);
   
-  --text-primary:  #0f172a;
-  --text-secondary:#475569;
-  --text-muted:    #94a3b8;
+  --text-primary:  #1a1c1c;
+  --text-secondary:#444748;
+  --text-muted:    #747878;
 
-  --violet-glow:   rgba(99, 102, 241, 0.08);
+  --violet-glow:   rgba(99, 102, 241, 0.07);
 }
 
-/* 다크 모드 (Sleek Obsidian) */
+/* 다크 모드 (Auralis Deep Graphite) */
 body[data-theme="dark"] {
-  --bg-base:       #090d16;
-  --bg-surface:    #111827;
-  --bg-card:       rgba(255, 255, 255, 0.03);
-  --bg-card-hover: rgba(255, 255, 255, 0.06);
-  --glass-border:  rgba(255, 255, 255, 0.08);
-  --glass-shadow:  0 8px 32px rgba(0, 0, 0, 0.5);
+  --bg-base:       #12131a;
+  --bg-surface:    #1c1d24;
+  --bg-card:       #1c1d24;
+  --bg-card-hover: #262730;
+  --glass-border:  #444748;
+  --glass-shadow:  0 8px 32px rgba(0, 0, 0, 0.4);
 
-  --text-primary:  #f8fafc;
-  --text-secondary:#94a3b8;
-  --text-muted:    #475569;
+  --text-primary:  #f0f1f1;
+  --text-secondary:#c4c7c7;
+  --text-muted:    #747878;
 
-  --violet-glow:   rgba(139, 92, 246, 0.25);
+  --violet-glow:   rgba(139, 92, 246, 0.2);
 }
 
 /* 테마 스위치 버튼 스타일 */
@@ -98,7 +98,7 @@ body[data-theme="dark"] {
 html { font-size: 16px; scroll-behavior: smooth; }
 
 body {
-  font-family: 'Noto Sans KR', -apple-system, sans-serif;
+  font-family: 'Outfit', 'Inter', 'Noto Sans KR', -apple-system, sans-serif;
   background: var(--bg-base);
   color: var(--text-primary);
   min-height: 100vh;
