@@ -44,30 +44,32 @@ body[data-theme="light"] {
   --bg-surface:    #ffffff;
   --bg-card:       #ffffff;
   --bg-card-hover: #f3f3f3;
-  --glass-border:  #c4c7c7;
-  --glass-shadow:  0 4px 30px rgba(17, 17, 17, 0.03);
+  /* 테두리 대비 대폭 약화 (1px solid 투명한 그레이) */
+  --glass-border:  rgba(0, 0, 0, 0.04);
+  --glass-shadow:  0 8px 30px rgba(17, 17, 17, 0.02);
   
   --text-primary:  #1a1c1c;
   --text-secondary:#444748;
   --text-muted:    #747878;
 
-  --violet-glow:   rgba(99, 102, 241, 0.07);
+  --violet-glow:   rgba(99, 102, 241, 0.05);
 }
 
 /* 다크 모드 (Auralis Deep Graphite) */
 body[data-theme="dark"] {
-  --bg-base:       #12131a;
-  --bg-surface:    #1c1d24;
-  --bg-card:       #1c1d24;
-  --bg-card-hover: #262730;
-  --glass-border:  #444748;
-  --glass-shadow:  0 8px 32px rgba(0, 0, 0, 0.4);
+  --bg-base:       #0d0e12;
+  --bg-surface:    #15161d;
+  --bg-card:       #15161d;
+  --bg-card-hover: #1e1f29;
+  /* 테두리 명도 대폭 낮춤 (배경 대비 아주 부드러운 경계) */
+  --glass-border:  rgba(255, 255, 255, 0.03);
+  --glass-shadow:  0 12px 40px rgba(0, 0, 0, 0.35);
 
   --text-primary:  #f0f1f1;
   --text-secondary:#c4c7c7;
   --text-muted:    #747878;
 
-  --violet-glow:   rgba(139, 92, 246, 0.2);
+  --violet-glow:   rgba(139, 92, 246, 0.12);
 }
 
 /* 테마 스위치 버튼 스타일 */
