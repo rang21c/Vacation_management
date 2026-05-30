@@ -82,7 +82,12 @@ export default function Dashboard() {
   // 1년 전체 휴가 리스트를 날짜 순으로 정렬하여 간격 계산용 배열 생성
   const allVacationsSorted = Object.entries(vacationData)
     .filter(([key]) => key.startsWith(`${year}-`))
-    .map(([key, state]) => ({ key, date: new Date(key), state }))
+    .map(([key, state]) => {
+      // "YYYY-MM-DD" 포맷 파싱 시 현지 시간대로 올바르게 매핑되도록 시간 요소를 결합하여 Date 객체화
+      const [yVal, mVal, dVal] = key.split("-");
+      const localDate = new Date(parseInt(yVal), parseInt(mVal) - 1, parseInt(dVal), 12, 0, 0);
+      return { key, date: localDate, state };
+    })
     .sort((a, b) => a.date - b.date);
 
   // 공휴일 정보 가져오기용 헬퍼 함수
@@ -131,7 +136,8 @@ export default function Dashboard() {
       let tempDate = new Date(prevDate);
       tempDate.setDate(tempDate.getDate() + 1);
       
-      while (tempDate < currDate) {
+      // 시간 변수를 제외하고 날짜 오차 범위를 지키며 비교
+      while (tempDate.getTime() < currDate.getTime()) {
         const dayOfWeek = tempDate.getDay(); // 0: 일요일, 6: 토요일
         const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
         const isHoliday = isDateHoliday(tempDate);
@@ -147,7 +153,7 @@ export default function Dashboard() {
       // 이전 휴가일과 다음 휴가일 사이에 순수 평일(일해야 하는 날)이 존재하는 경우에만 간격 표시
       if (workingDaysBetween > 0) {
         // 실제 날짜 차이수 계산
-        const diffTime = Math.abs(currDate - prevDate);
+        const diffTime = Math.abs(currDate.getTime() - prevDate.getTime());
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         vacationIntervals[item.key] = diffDays;
       } else {
