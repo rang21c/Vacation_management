@@ -62,10 +62,21 @@ function saveSettings(settings) {
 
 const currentYear = new Date().getFullYear();
 
+// 초기 테마 로드
+const loadTheme = () => {
+  try {
+    const raw = localStorage.getItem("vacation_theme");
+    return raw || "dark";
+  } catch {
+    return "dark";
+  }
+};
+
 const initialState = {
   year: currentYear,
-  vacationData: loadFromStorage(currentYear), // { "YYYY-MM-DD": VACATION_STATE }
+  vacationData: loadFromStorage(currentYear),
   settings: loadSettings(),
+  theme: loadTheme(),
 };
 
 function reducer(state, action) {
@@ -110,6 +121,11 @@ function reducer(state, action) {
       saveSettings(settings);
       return { ...state, settings };
     }
+    case "TOGGLE_THEME": {
+      const nextTheme = state.theme === "dark" ? "light" : "dark";
+      localStorage.setItem("vacation_theme", nextTheme);
+      return { ...state, theme: nextTheme };
+    }
     default:
       return state;
   }
@@ -120,19 +136,23 @@ const VacationContext = createContext(null);
 export function VacationProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  useEffect(() => {
+    // <body> 태그에 data-theme="dark/light" 속성 설정
+    document.body.setAttribute("data-theme", state.theme);
+  }, [state.theme]);
+
   const setYear = (year) => dispatch({ type: "SET_YEAR", payload: year });
   const toggleDay = (dateKey) => dispatch({ type: "TOGGLE_DAY", payload: { dateKey } });
   const clearDay = (dateKey) => dispatch({ type: "CLEAR_DAY", payload: { dateKey } });
   const clearAll = () => dispatch({ type: "CLEAR_ALL" });
   const setTotalDays = (days) => dispatch({ type: "SET_TOTAL_DAYS", payload: days });
+  const toggleTheme = () => dispatch({ type: "TOGGLE_THEME" });
 
-  // 총 사용 일수 계산
   const usedDays = Object.values(state.vacationData).reduce(
     (sum, s) => sum + (VACATION_DAYS[s] || 0),
     0
   );
 
-  // 월별 사용 일수 계산
   const monthlyUsed = Array.from({ length: 12 }, (_, i) => {
     const month = String(i + 1).padStart(2, "0");
     return Object.entries(state.vacationData)
@@ -152,6 +172,7 @@ export function VacationProvider({ children }) {
         year: state.year,
         vacationData: state.vacationData,
         settings: state.settings,
+        theme: state.theme,
         usedDays,
         monthlyUsed,
         setYear,
@@ -159,6 +180,7 @@ export function VacationProvider({ children }) {
         clearDay,
         clearAll,
         setTotalDays,
+        toggleTheme,
         getDateKey,
         getDayState,
         currentYear,

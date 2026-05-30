@@ -6,20 +6,17 @@
 
 /* ── 색상 토큰 ── */
 :root {
-  /* 배경 */
-  --bg-base:       #080c18;
-  --bg-surface:    #0f1629;
-  --bg-card:       rgba(255, 255, 255, 0.04);
-  --bg-card-hover: rgba(255, 255, 255, 0.07);
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+  --radius-xl:  28px;
+  --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* 글라스 */
-  --glass-border:  rgba(255, 255, 255, 0.08);
-  --glass-shadow:  0 8px 32px rgba(0, 0, 0, 0.4);
-
-  /* 포인트 컬러 */
-  --violet:        #7c3aed;
-  --violet-light:  #a855f7;
-  --violet-glow:   rgba(124, 58, 237, 0.35);
+  /* 공유 포인트 컬러 (브랜드 아이덴티티) */
+  --violet:        #6366f1;
+  --violet-light:  #8b5cf6;
+  --violet-glow:   rgba(99, 102, 241, 0.15);
   --indigo:        #4f46e5;
   --indigo-light:  #818cf8;
   --sky:           #0ea5e9;
@@ -27,31 +24,72 @@
   --emerald:       #10b981;
 
   /* 휴가 상태 색 */
-  --vac-full:      #7c3aed;        /* 종일 */
-  --vac-full-bg:   rgba(124, 58, 237, 0.25);
+  --vac-full:      #8b5cf6;        /* 종일 */
+  --vac-full-bg:   rgba(139, 92, 246, 0.22);
   --vac-am:        #4f46e5;        /* 오전 반차 */
-  --vac-am-bg:     rgba(79, 70, 229, 0.25);
+  --vac-am-bg:     rgba(79, 70, 229, 0.22);
   --vac-pm:        #0ea5e9;        /* 오후 반차 */
-  --vac-pm-bg:     rgba(14, 165, 233, 0.25);
+  --vac-pm-bg:     rgba(14, 165, 233, 0.22);
   --vac-quarter:   #10b981;        /* 반반차 */
-  --vac-quarter-bg:rgba(16, 185, 129, 0.20);
+  --vac-quarter-bg:rgba(16, 185, 129, 0.18);
 
-  /* 텍스트 */
-  --text-primary:  #f0f4ff;
+  --text-holiday:  #f43f5e;
+  --text-weekend-sat: #3b82f6;
+  --text-weekend-sun: #f43f5e;
+}
+
+/* 라이트 모드 (Neo-Minimalist) */
+body[data-theme="light"] {
+  --bg-base:       #f8fafc;
+  --bg-surface:    #ffffff;
+  --bg-card:       #ffffff;
+  --bg-card-hover: #f1f5f9;
+  --glass-border:  rgba(15, 23, 42, 0.08);
+  --glass-shadow:  0 10px 30px rgba(15, 23, 42, 0.04);
+  
+  --text-primary:  #0f172a;
+  --text-secondary:#475569;
+  --text-muted:    #94a3b8;
+
+  --violet-glow:   rgba(99, 102, 241, 0.08);
+}
+
+/* 다크 모드 (Sleek Obsidian) */
+body[data-theme="dark"] {
+  --bg-base:       #090d16;
+  --bg-surface:    #111827;
+  --bg-card:       rgba(255, 255, 255, 0.03);
+  --bg-card-hover: rgba(255, 255, 255, 0.06);
+  --glass-border:  rgba(255, 255, 255, 0.08);
+  --glass-shadow:  0 8px 32px rgba(0, 0, 0, 0.5);
+
+  --text-primary:  #f8fafc;
   --text-secondary:#94a3b8;
   --text-muted:    #475569;
-  --text-holiday:  #f87171;
-  --text-weekend-sat: #60a5fa;
-  --text-weekend-sun: #f87171;
 
-  /* UI */
-  --radius-sm:  6px;
-  --radius-md:  12px;
-  --radius-lg:  20px;
-  --radius-xl:  28px;
+  --violet-glow:   rgba(139, 92, 246, 0.25);
+}
 
-  --transition: 0.18s ease;
-  --transition-slow: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+/* 테마 스위치 버튼 스타일 */
+.theme-toggle-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  box-shadow: var(--glass-shadow);
+}
+.theme-toggle-btn:hover {
+  transform: scale(1.08);
+  background: var(--bg-card-hover);
+  border-color: var(--violet-light);
 }
 
 /* ── 리셋 & 기반 ── */
