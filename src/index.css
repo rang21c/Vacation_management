@@ -53,6 +53,8 @@ body[data-theme="light"] {
   --text-muted:    #747878;
 
   --violet-glow:   rgba(99, 102, 241, 0.05);
+  /* 라이트 모드 헤더 바 투명화 배경색 */
+  --header-bg:     rgba(249, 249, 249, 0.85);
 }
 
 /* 다크 모드 (Auralis Deep Graphite) */
@@ -70,6 +72,8 @@ body[data-theme="dark"] {
   --text-muted:    #747878;
 
   --violet-glow:   rgba(139, 92, 246, 0.12);
+  /* 다크 모드 헤더 바 투명화 배경색 */
+  --header-bg:     rgba(13, 14, 18, 0.85);
 }
 
 /* 테마 스위치 버튼 스타일 */
@@ -211,7 +215,7 @@ body::after {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(8, 12, 24, 0.85);
+  background: var(--header-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--glass-border);
