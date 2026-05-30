@@ -317,47 +317,132 @@ body::after {
    월별 달력 페이지
    ════════════════════════════════════════ */
 
-/* 월 탭 */
-.month-tabs {
+/* 월별 달력 페이지 헤더 영역 구조 */
+.calendar-page-header {
   display: flex;
-  gap: 4px;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 24px;
   flex-wrap: wrap;
+  gap: 16px;
 }
+
+/* 화살표 내비게이터 */
+.month-mini-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  box-shadow: var(--glass-shadow);
+}
+.month-nav-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+.month-nav-arrow:hover {
+  background: var(--bg-card-hover);
+  color: var(--violet-light);
+}
+.month-nav-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  min-width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+/* 월 탭 래퍼 & 그리드 (가로 정렬 및 터치 스와이프 스크롤 지원) */
+.month-selector-grid-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 24px;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+.month-selector-grid-wrapper::-webkit-scrollbar {
+  height: 4px;
+}
+.month-selector-grid-wrapper::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 2px;
+}
+
+.month-tabs {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 8px;
+  min-width: 800px; /* 모바일에서 찌그러지지 않고 좌우 스크롤 되도록 최소 가로 폭 보장 */
+}
+
 .month-tab {
-  padding: 7px 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  height: 48px; /* 터치하기 넉넉한 높이 확보 */
+  padding: 0 8px;
   border-radius: var(--radius-md);
   border: 1px solid var(--glass-border);
   background: var(--bg-card);
   color: var(--text-secondary);
   font-family: inherit;
-  font-size: 0.85rem;
-  font-weight: 500;
   cursor: pointer;
   transition: all var(--transition);
   position: relative;
 }
-.month-tab:hover { color: var(--text-primary); background: var(--bg-card-hover); }
+.month-tab:hover {
+  color: var(--text-primary);
+  background: var(--bg-card-hover);
+  border-color: var(--violet-light);
+}
 .month-tab.active {
-  color: #fff;
+  color: #ffffff;
   background: linear-gradient(135deg, var(--violet), var(--indigo));
   border-color: transparent;
   box-shadow: 0 4px 16px var(--violet-glow);
 }
+.month-tab .tab-month-num {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+.month-tab .tab-month-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  opacity: 0.8;
+}
 .month-tab .tab-badge {
   position: absolute;
-  top: -5px; right: -5px;
-  min-width: 18px;
-  height: 18px;
-  border-radius: 9px;
-  background: var(--violet-light);
+  top: -6px;
+  right: -4px;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--text-holiday);
   color: #fff;
   font-size: 0.65rem;
-  font-weight: 700;
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 4px;
+  padding: 0 5px;
+  border: 1.5px solid var(--bg-base);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 /* 달력 그리드 */

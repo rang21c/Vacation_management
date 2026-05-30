@@ -28,34 +28,58 @@ export default function MonthlyCalendar() {
   const monthUsed = monthlyUsed[activeMonth - 1];
   const remaining = settings.totalDays - usedDays;
 
+  const handlePrevMonth = () => {
+    setActiveMonth((prev) => (prev === 1 ? 12 : prev - 1));
+  };
+
+  const handleNextMonth = () => {
+    setActiveMonth((prev) => (prev === 12 ? 1 : prev + 1));
+  };
+
   return (
     <div className="page-content">
-      <div className="page-title">
-        <span className="icon">📅</span>
-        <span>{year}년 월별 달력</span>
+      <div className="calendar-page-header">
+        <div className="page-title">
+          <span className="icon">📅</span>
+          <span>{year}년 월별 달력</span>
+        </div>
+        
+        {/* 미니 네비게이터 화살표 버튼 */}
+        <div className="month-mini-nav">
+          <button className="month-nav-arrow" onClick={handlePrevMonth} aria-label="이전 달">
+            ‹
+          </button>
+          <span className="month-nav-label">{activeMonth}월</span>
+          <button className="month-nav-arrow" onClick={handleNextMonth} aria-label="다음 달">
+            ›
+          </button>
+        </div>
       </div>
 
       {/* 월 탭 */}
-      <div className="month-tabs" role="tablist">
-        {MONTH_NAMES.map((name, i) => {
-          const m = i + 1;
-          const used = monthlyUsed[i];
-          return (
-            <button
-              key={m}
-              className={`month-tab ${activeMonth === m ? "active" : ""}`}
-              onClick={() => setActiveMonth(m)}
-              role="tab"
-              aria-selected={activeMonth === m}
-              id={`month-tab-${m}`}
-            >
-              {name}
-              {used > 0 && (
-                <span className="tab-badge">{used}</span>
-              )}
-            </button>
-          );
-        })}
+      <div className="month-selector-grid-wrapper">
+        <div className="month-tabs" role="tablist">
+          {MONTH_NAMES.map((name, i) => {
+            const m = i + 1;
+            const used = monthlyUsed[i];
+            return (
+              <button
+                key={m}
+                className={`month-tab ${activeMonth === m ? "active" : ""}`}
+                onClick={() => setActiveMonth(m)}
+                role="tab"
+                aria-selected={activeMonth === m}
+                id={`month-tab-${m}`}
+              >
+                <span className="tab-month-num">{m}</span>
+                <span className="tab-month-label">월</span>
+                {used > 0 && (
+                  <span className="tab-badge">{used}</span>
+                )}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* 달력 */}
